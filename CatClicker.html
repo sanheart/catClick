@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cat Clicker</title>
+	<style type="text/css">
+		img {
+			width: 30%;
+			height: 30%;
+		}
+	</style>
+</head>
+<body>
+<div class="main">
+	<header class="list">
+		<ul>	
+		</ul>
+	</header>
+
+</div>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>		
+<script>
+	// //创建猫咪列表
+	// var catList = ['cat1', 'cat2', 'cat3'];
+	// for(var i = 0; i < catList.length; i++){
+	// 	var cat = catList[i];
+	// 	//创建li 元素
+	// 	var elem = $("<li></li>").text(cat);
+	// 	//添加li 元素
+
+	// 	$(elem).click((function(icopy) {
+	// 		return function() {
+	// 			console.log("我点了！");
+	// 			catInfo(i+1);
+	// 		};
+	// 	})(i));
+
+	// 	$("ul").append(elem);
+	// }
+
+	//猫列表
+	var nums = [];
+	function catList(count) {
+		for(var i = 1; i <= count; i++) {
+			nums.push(i);
+		}
+		console.log(nums);// [1,2,3]
+
+		for(var j = 0; j < nums.length; j++) {
+			var num = nums[j];
+			var elem = $("<li></li>").text("cat" + num);
+			$("ul").append(elem);
+			console.log(elem);
+			$(elem).click((function(numCopy) {
+				return function() {
+					console.log("我点了！");
+					catInfo(numCopy);
+					catImgClicker(numCopy);
+				};
+			})(num));			
+		}
+	}
+	catList(3);
+	//猫详情
+	function catInfo(id) {
+		$("header").append('<h1>cat ' + id + ' </h1>');
+		$("header").append('<h2>点击的次数:<span id="count_cat' + id +'">0</span>');
+		$("header").append('<img id="img_cat' + id + '"' + 'src="img/cat' + id +'.jpg" alt="cat '+ id +'">');
+	}
+	//点击图片，次数+1
+	function catImgClicker(id) {
+		var img_id = "#img_cat" + id;
+		var count_id = "#count_cat" + id;
+
+		$(img_id).click(function() {
+			var count = parseInt($(count_id).text());
+			count += 1;
+			$(count_id).text(count);
+		});
+	} 
+
+	// document.body.innerHTML = '';
+	// document.body.style.background = 'white';
+
+	// var nums = [1, 2, 3];
+	// for(var i = 0; i < nums.length; i++){
+
+	// 	// 这个变量在我们进行迭代时一直在改变 !
+ //   		//  第一个值是1，接着是2，最后是3
+	// 	var num = nums[i];
+
+	// 	var elem = document.createElement('div');
+	// 	elem.textContent = num;
+	// 	//点击时...
+	// 	// elem.addEventListener('click', function() {
+	// 	// 	//...在点击的时候提示num的值
+	// 	// 	alert(num);
+ // 	// 		// 很明显，我们提示 num 变量的值
+ //  //     		// 它在内部函数(指的是 addEventListener 中的匿名函数)的外面被定义。
+ //  //     		// 每个内部函数都指向同一个 'num' 变量… 而 'num' 变量在每一次的迭代中都发生了变化，
+ //  //     		// 在循环的最后它被定义为3。无论何时，点击事件调用的匿名函数都会引用同一个 'num' 变量(现在它等于3)			
+	// 	// });
+
+	// 	//使用闭包解决
+	// 	//我们通过加上圆括号来使它立即被调用，并传入 num。这种包一个匿名函数并立即执行它的方法称为 IIFE(Immediately-Invoked Function Expression,立即执行函数表达式)
+	// 	elem.addEventListener('click', (function(numCopy) {
+	// 		return function() {
+	// 			alert(numCopy);
+	// 		};
+	// 	})(num));
+
+	// 	document.body.appendChild(elem);
+	// };
+
+</script>
+</body>
+</html>
